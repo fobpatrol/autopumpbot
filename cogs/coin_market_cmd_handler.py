@@ -90,6 +90,36 @@ class CoinMarketCommands:
                                                            currency2,
                                                            currency_amt)
 
+
+
+
+    @commands.command(name='pump')
+    async def pump(self, currency1: str, currency2: str, currency_amt: float):
+        """
+        Displays conversion from one cryptocurrency to another
+        An example for this command would be:
+        "%pump bitcoin litecoin 500"
+
+        @param currency1 - currency to convert from
+        @param currency2 - currency to convert to
+        @param currency_amt - amount of currency1 to convert
+                              to currency2
+        """
+        await self.cmd_function.cmc.calculate_pump(currency1,
+                                                           currency2,
+                                                           currency_amt)
+        
+        
+
+
+
+
+
+
+
+
+
+
     @commands.command(name='cc')
     async def cc(self, currency: str, currency_amt: float, fiat='USD'):
         """

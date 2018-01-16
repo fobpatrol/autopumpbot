@@ -166,6 +166,79 @@ class CoinMarketFunctionality:
             print("An error has occured. See error.log.")
             logger.error("Exception: {}".format(str(e)))
 
+
+
+
+
+
+
+
+
+
+
+
+    async def calculate_pump(self, currency1, currency2, currency_amt):
+        """
+        Calculates cryptocoin to another cryptocoin and displays it
+
+        @param currency1 - currency to convert from
+        @param currency2 - currency to convert to
+        @param currency_amt - amount of currency coins
+        """
+    
+   
+      
+        try:
+            acronym1 = ''
+            acronym2 = ''
+            if currency1.upper() in self.acronym_list:
+                acronym1 = currency1.upper()
+                currency1 = self.acronym_list[currency1.upper()]
+            else:
+                acronym1 = self.market_list[currency1]["symbol"]
+            if currency2.upper() in self.acronym_list:
+                acronym2 = currency2.upper()
+                currency2 = self.acronym_list[currency2.upper()]
+            else:
+                acronym2 = self.market_list[currency2]["symbol"]
+            price_btc1 = float(self.market_list[currency1]['price_btc'])
+            price_btc2 = float(self.market_list[currency2]['price_btc'])
+            btc_amt = float("{:.8f}".format(currency_amt * price_btc1))
+            converted_amt = "{:.8f}".format(btc_amt/price_btc2).rstrip('0')
+            currency_amt = "{:.8f}".format(currency_amt).rstrip('0')
+            targetprice = "{:.8f}".format(2.5*btc_amt/price_btc2).rstrip('0')
+            if currency_amt.endswith('.'):
+                currency_amt = currency_amt.replace('.', '')
+            result = "Starting Price = **{} {}**   ||   Target Price = **{} {}** (+150%)".format(
+                                                              converted_amt,
+                                                              currency2.title(),
+                                                              targetprice,
+                                                              currency2.title())
+            em = discord.Embed(title="PUMP COIN = ({})".format(
+                                                               acronym1),
+                               description=result,
+                               colour=0xFF9900)
+            await self.bot.say(embed=em)
+
+
+
+
+        except Forbidden:
+            pass
+        except Exception as e:
+            await self.bot.say("Command failed. Make sure the arguments are valid.")
+            print("An error has occured. See error.log.")
+            logger.error("Exception: {}".format(str(e)))
+
+
+
+
+
+
+
+
+
+
     async def calculate_coin_to_fiat(self, currency, currency_amt, fiat):
         """
         Calculates coin to fiat rate and displays it
