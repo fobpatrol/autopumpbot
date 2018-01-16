@@ -94,7 +94,7 @@ class CoinMarketCommands:
 
 
     @commands.command(name='pump')
-    async def pump(self, currency1: str, currency2: str, currency_amt: float):
+    async def pump(self, currency1: str, currency2: str, currency_amt: float, target_amt: float):
         """
         Displays conversion from one cryptocurrency to another
         An example for this command would be:
@@ -107,7 +107,8 @@ class CoinMarketCommands:
         """
         await self.cmd_function.cmc.calculate_pump(currency1,
                                                            currency2,
-                                                           currency_amt)
+                                                           currency_amt,
+                                                           target_amt)
         
         
 

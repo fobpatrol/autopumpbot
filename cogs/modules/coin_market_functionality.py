@@ -177,7 +177,7 @@ class CoinMarketFunctionality:
 
 
 
-    async def calculate_pump(self, currency1, currency2, currency_amt):
+    async def calculate_pump(self, currency1, currency2, currency_amt, target_amt):
         """
         Calculates cryptocoin to another cryptocoin and displays it
 
@@ -206,14 +206,15 @@ class CoinMarketFunctionality:
             btc_amt = float("{:.8f}".format(currency_amt * price_btc1))
             converted_amt = "{:.8f}".format(btc_amt/price_btc2).rstrip('0')
             currency_amt = "{:.8f}".format(currency_amt).rstrip('0')
-            targetprice = "{:.8f}".format(2.5*btc_amt/price_btc2).rstrip('0')
+            targetprice = "{:.8f}".format((1+target_amt)*btc_amt/price_btc2).rstrip('0')
             if currency_amt.endswith('.'):
                 currency_amt = currency_amt.replace('.', '')
-            result = "Starting Price = **{} {}**   ||   Target Price = **{} {}** (+150%)".format(
+            result = "Starting Price = **{} {}**   ||   Target Price = **{} {}** (+**{}**%)".format(
                                                               converted_amt,
                                                               currency2.title(),
                                                               targetprice,
-                                                              currency2.title())
+                                                              currency2.title(),
+                                                              target_amt*100)
             em = discord.Embed(title="PUMP COIN = ({})".format(
                                                                acronym1),
                                description=result,
