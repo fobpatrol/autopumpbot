@@ -31,6 +31,12 @@ class CoinMarketBot:
     async def on_server_remove(server):
         update_server_count(len(bot.servers))
 
+
+
+
+    
+
+
     @bot.event
     async def on_ready():
         try:
